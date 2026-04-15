@@ -22,5 +22,5 @@ EXPOSE 8000
 # Set environment to production
 ENV NODE_ENV=production
 
-# Start the HTTP server
-CMD ["npm", "start"] 
+# Default: main.ts. Railway overrides via railway.json to `npm run start:vapi`.
+CMD ["npm", "start"]
