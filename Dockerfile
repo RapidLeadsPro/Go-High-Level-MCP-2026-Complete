@@ -7,14 +7,17 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install all deps (TypeScript lives in devDependencies; root `npm run build` runs `tsc`)
+RUN npm ci
 
 # Copy source code
 COPY . .
 
 # Build the application
 RUN npm run build
+
+# Drop devDependencies for a smaller runtime image (keeps compiled `dist/`)
+RUN npm prune --omit=dev
 
 # Expose the port
 EXPOSE 8000
